@@ -1,0 +1,1 @@
+conan install bitprim-node-exe/0.10.1@bitprim/stable -o *:currency=BCH -o *:with_rpc=True
