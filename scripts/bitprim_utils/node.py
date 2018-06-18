@@ -13,19 +13,15 @@ class BitprimNode:
         self.config_file = config_file
 
         if binary is None:
-            self.binary = os.getenv("BITPRIM", "./bn")
+            self.binary = os.getenv("BITPRIM", "../bn")
         else:
             self.binary = binary
 
         self.stdout = stdout
         self.stderr = stderr
 
-        # self.cli = TestNodeCLI(os.getenv("BITCOINCLI", "bitcoin-cli"), self.datadir)
-
         self.running = False
         self.process = None
-
-        self.log = logging.getLogger('Bitprim.node%d' % i)
 
     def start(self, stdout=None, stderr=None):
         """Start the node."""
@@ -45,7 +41,6 @@ class BitprimNode:
         self.process = subprocess.Popen([self.binary, "-c", self.config_file + str(self.index)], stdout=stdout,
                                         stderr=stderr)
         self.running = True
-        # self.log.debug("bitcoind started, waiting for RPC to come up")
 
     def stop_call(self):
         self.process.terminate()
@@ -54,7 +49,6 @@ class BitprimNode:
         """Stop the node."""
         if not self.running:
             return
-        # self.log.debug("Stopping node")
         print("Stopping the node " + str(self.index))
         self.stop_call()
         self.wait_until_process_end()
@@ -73,13 +67,13 @@ class BitprimNode:
 
 
 if __name__ == "__main__":
-    node1 = BitprimNode(1, 18333, "../config/bch/cfg", "./bn")
+    node1 = BitprimNode(1, 18333, "../config/bch/cfg", "../bn")
     node1.start()
 
-    node2 = BitprimNode(2, 18335, "../config/bch/cfg", "./bn")
+    node2 = BitprimNode(2, 18335, "../config/bch/cfg", "../bn")
     node2.start()
 
-    time.sleep(60)
+    time.sleep(10)
 
     node1.stop()
     node2.stop()

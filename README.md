@@ -3,6 +3,7 @@ WIP use python to generate integration tests for a bitprim node.
 
 # Requirements
 * Python 3.X
+* * `pip install requests`
 * Bitprim-exe with rpc.
 ```
 cd integration-tests-bitprim
