@@ -1,4 +1,3 @@
-import subprocess
 import requests
 
 
@@ -31,3 +30,12 @@ class BitprimRPC:
         payload = '{"jsonrpc": "1.0", "id":"curltest", "method": "getblock", "params": ["' + str(
             hash_value) + '"] }'
         return self.validate_curl_response(self.send_curl(payload))
+
+    # TODO: create the best block hash on bitprim-rpc
+    def generate_best_block_hash(self):
+        res, info = self.get_info()
+        if res and info['error'] is None:
+            res, json = self.get_block_hash(info['result']['blocks'])
+            if res and json['error'] is None:
+                return json['result']
+        return ""
