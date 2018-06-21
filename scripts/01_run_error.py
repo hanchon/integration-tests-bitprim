@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# This file is just an example of a test that always fails to demonstrate how the runner.py works
+# TODO: remove this file
+
 from bitprim_utils.node import BitprimNode
 from bitprim_utils.util import (
     sync_chain,
@@ -37,6 +40,8 @@ if __name__ == "__main__":
     print(node2.rpc.generate_best_block_hash())
 
     sync_chain([node1, node2])
+
+    assert_equal(1, 2)
 
     node1.stop()
     node2.stop()

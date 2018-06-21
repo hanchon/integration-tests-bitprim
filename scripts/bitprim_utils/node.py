@@ -9,7 +9,7 @@ from bitprim_utils.util import (
 
 class BitprimNode:
 
-    def __init__(self, config_file, binary, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL):
+    def __init__(self, config_file, binary=None, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL):
 
         self.config_file = config_file
 
