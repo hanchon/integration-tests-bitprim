@@ -4,6 +4,7 @@ import time
 from .rpc import BitprimRPC
 from bitprim_utils.util import (
     parse_cfg,
+    assert_greater_than,
 )
 
 
@@ -61,11 +62,16 @@ class BitprimNode:
         self.wait_until_process_end()
         print("Node stopped successfully: " + str(self.config_file))
 
-    def wait_until_process_end(self):
+    def wait_until_process_end(self, timeout=240):
+        # NOTE: if the process doesn't end, the runner.py script will kill it.
+        timeout += time.time()
         while self.process.poll() is None:
             time.sleep(1)
-            print('.', end='', flush=True)
-        print("")
+            if time.time() > timeout:
+                print("Process didn't finish in " + str(timeout) + " seconds.")
+                break
+        # To log as an error the timeout use:
+        assert_greater_than(timeout, time.time())
 
     def clean_files(self):
         os.system('rm -rf ' + self.archive_directory)
